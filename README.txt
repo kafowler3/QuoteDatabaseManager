@@ -1,7 +1,7 @@
 Quotes Database v0.3
 
 Changelog:
-1. Added the ability to output selected quotes to "quotesOutput.txt" inside of "Quotes" folder
+1. Added the ability to output selected quotes to "quotesOutput.txt" inside of selected folder
 2. Fixed crashing on start if "quotesData.txt" not found
 
 General Instructions:
@@ -22,9 +22,8 @@ Features:
 10. Output selected quotes to .txt file
 
 Notes:
-1. Any external quote files you wish to add must be in "Quotes" folder using utf-8 encoding.
+1. Any external quote files you wish to add must be in the same folder as "quotes.exe" and must use utf-8 encoding.
 2. External quotes must have quotation marks around quotations and '~' or '-' preceding the speaker's name.
 3. External qutoes must have quotations and authors on separate lines but the amount of whitespace does not matter.
 4. Tags must be added manually at this time.
-5. Report any bugs to kafowler3@crimson.ua.edu
  
