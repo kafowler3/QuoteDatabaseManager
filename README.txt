@@ -1,18 +1,30 @@
-Quotes Database v0.1
+Quotes Database v0.3
+
+Changelog:
+1. Added the ability to output selected quotes to "quotesOutput.txt" inside of "Quotes" folder
+2. Fixed crashing on start if "quotesData.txt" not found
 
 General Instructions:
-1. Navigate to "Quotes" folder in Powershell.
-2. Run program by executing "py quotes.py" in PowerShell.
-3. Use the program by typing single character commands and pressing enter.
-4. The program saves changes once edits are confirmed and the main menu returns.
-5. *DO NOT MANUALLY DELETE "quotesData.txt" OR THE PROGRAM WILL NOT LAUNCH*
+1. Run program by launching "quotes.exe".
+2. Use the program by typing single character commands and pressing enter.
+3. The program saves changes once edits are confirmed and the main menu returns.
+
+Features:
+1. Displays stored quotes
+2. Displays quotes belonging to a certain speaker
+3. Displays quotes with a certain tag attached
+4. Imports new quotes from .txt file
+5. Displays all used names
+6. Displays all used tags
+7. Clean formatting for long quotes
+8. Ability to hide quotes using "hidden" tag
+9. Automatic removal of duplicates
+10. Output selected quotes to .txt file
 
 Notes:
-A python3 interpreter must be installed to run the program. 
-To check if python is installed, type "py" in PowerShell to get verison information.
-If python is not installed, download any verison 3.0+ from python.org.
-Any external quote files you wish to add must be in "Quotes" folder using utf8 encoding.
-External quotes must have quotation marks around quotations and '~' or '-' preceding the speaker's name.
-External qutoes must have quotations and authors on separate lines but the amount of whitespace does not matter.
-Tags must be added manually at this time.
+1. Any external quote files you wish to add must be in "Quotes" folder using utf-8 encoding.
+2. External quotes must have quotation marks around quotations and '~' or '-' preceding the speaker's name.
+3. External qutoes must have quotations and authors on separate lines but the amount of whitespace does not matter.
+4. Tags must be added manually at this time.
+5. Report any bugs to kafowler3@crimson.ua.edu
  
