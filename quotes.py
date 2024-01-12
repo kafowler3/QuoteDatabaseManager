@@ -1,5 +1,5 @@
 # Quotes Database
-# Last updated 01/10/24
+# Last updated 01/11/24
 ver = 0.3
 
 # A program to store and sort quotes with the following features:
@@ -15,6 +15,7 @@ ver = 0.3
 # 10. Output selected quotes to .txt file
 
 import os
+import copy
 
 # Subclass that contains all of the relevant data on a quote
 #-----------------------------------------------------------
@@ -114,12 +115,25 @@ def pause(displayed, array = quotes, output = False):
     if output:
         print("\tNote: changes will only be saved to output; no changes will be saved to database.")
     opt = input ("\tTo modify a quote, enter the corresponding number.\n\tOr press enter to continue or \"R\" to return: ").rstrip()
-    if (opt.isdigit() and int(opt) < len(array)):
-            modify(opt, displayed, array)
-            header()
-            for item in displayed:
-                print(item)
-            return pause(displayed, array, output)
+    if (opt.isdigit()):
+        opt = int(opt)
+        index = -1
+        if opt < len(array) and array[opt].key == opt:
+            index = opt
+        else:
+            i = 0
+            while i < len(array):
+                if array[i].key == opt:
+                    index = i
+                    break
+                i += 1
+        if index == -1:
+            return -1
+        modify(opt, index, displayed, array)
+        header()
+        for item in displayed:
+            print(item)
+        return pause(displayed, array, output)
     elif (opt == ""):
         return 1
     if (opt[0] == 'r' or opt[0] == 'R'):
@@ -128,25 +142,25 @@ def pause(displayed, array = quotes, output = False):
 
 # Modifies individual quote data
 #-------------------------------
-def modify(key, displayed, array = quotes):
+def modify(key, index, displayed, array = quotes):
     key = int(key)
     header()
-    print(array[key])
+    print(array[index])
     opt = input("\n\t1. Modify quote\n\t2. Modify name\n\t3. Modify tags\n\t4. Delete entry\n\t(Press \"R\" to return): ")
     if (opt == "" or (opt[0] =='r' or opt[0] == "R")):
         return -1
     header()
-    print(array[key])
+    print(array[index])
 
     # Modifies quote
     #---------------
     if (opt == '1'):
-        array[key].quote = input("\n\tEnter replacement quote: ").rstrip()
+        array[index].quote = input("\n\tEnter replacement quote: ").rstrip()
     
     # Modifies name
     #--------------
     elif (opt == '2'):
-        array[key].person = input("\n\tEnter replacement name: ").rstrip()
+        array[index].person = input("\n\tEnter replacement name: ").rstrip()
     
     # Modified tags
     #--------------
@@ -157,24 +171,24 @@ def modify(key, displayed, array = quotes):
             newTags.append(newTag)
             newTag = input("\tEnter a tag (leave blank if there are no more): ").rstrip().lower()
         newTags.sort()
-        array[key].tags = newTags
+        array[index].tags = newTags
         for element in newTags:
             if element == "hidden":
-                array[key].hidden = True
+                array[index].hidden = True
                 break
     
     # Deletes entry
     #--------------
     elif (opt == '4'):
-        array.pop(key)
+        array.pop(index)
         for item in displayed:
             if item.key == key:
                 displayed.remove(item)
-        while (key < len(quotes)):
-            array[key].decrement()
-            key += 1
+        while (index < len(array)):
+            array[index].decrement()
+            index += 1
         return
-    modify(key, displayed, array)
+    modify(key, index, displayed, array)
 
 # Saves quotes to file
 #---------------------
@@ -476,7 +490,7 @@ while(True):
         header()
         include = input("\tEnter a name to include (leave blank to include all names by default): ").strip()
         if (include == ""):
-            selectedNames = names.copy()
+            selectedNames = copy.deepcopy(names)
             exclude = input("\tEnter a name to exclude (leave blank to exclude no names by default): ").strip()
             while (exclude != ""):
                 if exclude in selectedNames:
@@ -493,7 +507,7 @@ while(True):
         includeUntagged = False
         include = input("\tEnter a tag to include (leave blank to include all tags by default): ").strip()
         if (include == ""):
-            selectedFlags = flags.copy()
+            selectedFlags = copy.deepcopy(names)
             includeUntagged = True
             exclude = input("\tEnter a tag to exclude (leave blank to exclude no tags by default): ").strip()
             while (exclude != ""):
@@ -525,7 +539,7 @@ while(True):
         for item in quotes:
             if item.person in selectedNames:
                 if item.tags == [] and includeUntagged:
-                    selection.append(item)
+                    selection.append(copy.deepcopy(item))
                 elif logicalAnd:
                     belongs = True
                     for flag in selectedFlags:
@@ -533,11 +547,11 @@ while(True):
                             belongs = False
                             break
                     if belongs:
-                        selection.append(item)
+                        selection.append(copy.deepcopy(item))
                 else:
                     for attribute in item.tags:
                         if attribute in selectedFlags:
-                            selection.append(item)
+                            selection.append(copy.deepcopy(item))
                             break
         if "hidden" not in selectedFlags:
             for select in selection:

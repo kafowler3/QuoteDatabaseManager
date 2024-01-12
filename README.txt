@@ -3,6 +3,7 @@ Quotes Database v0.3
 Changelog:
 1. Added the ability to output selected quotes to "quotesOutput.txt" inside of selected folder
 2. Fixed crashing on start if "quotesData.txt" not found
+3. Fixed editing data errors when outputing to file
 
 General Instructions:
 1. Run program by launching "quotes.exe".
